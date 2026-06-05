@@ -1,0 +1,354 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Clínica Integra - Ubícanos</title>
+    <style>
+      /* ===== RESET BASICO ===== */
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      /* ===== FUENTE Y FONDO ===== */
+      body {
+        font-family: Arial, Helvetica, sans-serif;
+        background: #ffffff;
+        color: #1a2e45;
+      }
+
+      /* Circulos decorativos de fondo */
+      .blob {
+        position: fixed;
+        border-radius: 50%;
+        filter: blur(90px);
+        z-index: -1;
+        opacity: 0.45;
+      }
+      .blob-1 {
+        width: 420px;
+        height: 420px;
+        background: #c7d9ff;
+        top: -120px;
+        left: -120px;
+      }
+      .blob-2 {
+        width: 360px;
+        height: 360px;
+        background: #dac6ff;
+        top: -80px;
+        right: -100px;
+      }
+
+      /* ===== CONTENEDOR CENTRAL ===== */
+      .container {
+        width: 1080px;
+        max-width: calc(100% - 32px);
+        margin: 0 auto;
+        padding: 0 0 40px;
+      }
+
+      /* ===== NAVBAR ===== */
+      .navbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 22px 0;
+      }
+
+      .logo {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        text-decoration: none;
+        color: #1a2e45;
+      }
+      .logo-icon {
+        width: 36px;
+        height: 36px;
+        background: #3451ff;
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #fff;
+        font-weight: 900;
+        font-size: 18px;
+      }
+      .logo span {
+        font-size: 18px;
+        font-weight: 700;
+      }
+
+      .nav-links {
+        display: flex;
+        align-items: center;
+        gap: 32px;
+        list-style: none;
+      }
+      .nav-links a {
+        text-decoration: none;
+        color: #4a5568;
+        font-size: 15px;
+        font-weight: 600;
+      }
+      .nav-links a:hover {
+        color: #3451ff;
+      }
+      .nav-links a.active {
+        color: #ff4e6a;
+      }
+
+      .nav-cta {
+        background: #3451ff;
+        color: #fff;
+        border: none;
+        padding: 12px 22px;
+        border-radius: 999px;
+        font-size: 14px;
+        font-weight: 700;
+        text-decoration: none;
+        cursor: pointer;
+      }
+
+      /* ===== CABECERA DE PAGINA ===== */
+      .page-header {
+        padding: 50px 0 40px;
+        text-align: center;
+      }
+      .page-header .tag {
+        display: inline-block;
+        background: #eef1ff;
+        color: #3451ff;
+        padding: 7px 14px;
+        border-radius: 999px;
+        font-size: 13px;
+        font-weight: 700;
+        margin-bottom: 18px;
+      }
+      .page-header h1 {
+        font-size: 46px;
+        font-weight: 900;
+        line-height: 1.1;
+        color: #1a2e45;
+      }
+      .page-header h1 span {
+        color: #3451ff;
+      }
+      .page-header p {
+        font-size: 15px;
+        color: #5a6a7a;
+        margin-top: 14px;
+        line-height: 1.7;
+      }
+
+      /* ===== LAYOUT DOS COLUMNAS ===== */
+      .layout {
+        display: grid;
+        grid-template-columns: 1.2fr 1fr;
+        gap: 32px;
+        align-items: start;
+      }
+
+      /* ===== COLUMNA IZQUIERDA (imagen) ===== */
+      .map-side img {
+        width: 100%;
+        border-radius: 20px;
+        display: block;
+        background: #dce8f8;
+        box-shadow: 0 20px 50px rgba(52, 81, 255, 0.12);
+        margin-bottom: 18px;
+      }
+      .map-side p {
+        font-size: 14px;
+        color: #5a6a7a;
+        line-height: 1.7;
+      }
+
+      /* ===== COLUMNA DERECHA (datos) ===== */
+      .info-box {
+        background: #f7f9ff;
+        border: 1px solid #e8edf8;
+        border-radius: 24px;
+        padding: 32px;
+      }
+
+      .info-box h2 {
+        font-size: 26px;
+        margin-bottom: 20px;
+        color: #1a2e45;
+      }
+
+      /* Direccion destacada */
+      .address {
+        background: #eef1ff;
+        border-radius: 14px;
+        padding: 18px 20px;
+        margin-bottom: 22px;
+      }
+      .address strong {
+        display: block;
+        font-size: 16px;
+        color: #3451ff;
+        margin-bottom: 6px;
+      }
+      .address p {
+        font-size: 14px;
+        line-height: 1.7;
+        color: #1a2e45;
+      }
+
+      /* Lista de referencias */
+      .info-box h3 {
+        font-size: 16px;
+        margin-bottom: 14px;
+        color: #1a2e45;
+      }
+
+      .info-box ul {
+        list-style: none;
+        padding: 0;
+      }
+
+      .info-box li {
+        display: flex;
+        align-items: flex-start;
+        gap: 10px;
+        font-size: 14px;
+        color: #5a6a7a;
+        padding: 10px 0;
+        border-bottom: 1px solid #e8edf8;
+        line-height: 1.6;
+      }
+      .info-box li:last-child {
+        border-bottom: none;
+      }
+
+      .info-box li .dot {
+        width: 8px;
+        height: 8px;
+        background: #3451ff;
+        border-radius: 50%;
+        margin-top: 5px;
+        flex-shrink: 0;
+      }
+
+      /* Boton de ir al formulario */
+      .go-btn {
+        display: block;
+        width: 100%;
+        margin-top: 24px;
+        background: #3451ff;
+        color: #fff;
+        padding: 14px;
+        border-radius: 12px;
+        text-align: center;
+        text-decoration: none;
+        font-weight: 700;
+        font-size: 15px;
+        box-shadow: 0 12px 28px rgba(52, 81, 255, 0.25);
+      }
+
+      /* ===== FOOTER ===== */
+      .footer {
+        margin-top: 40px;
+        background: #fff8e0;
+        border: 1px solid #ffe49a;
+        border-radius: 16px;
+        padding: 18px;
+        text-align: center;
+        font-weight: 700;
+        color: #7a5c0a;
+      }
+
+      /* ===== RESPONSIVE ===== */
+      @media (max-width: 820px) {
+        .layout {
+          grid-template-columns: 1fr;
+        }
+        .page-header h1 {
+          font-size: 34px;
+        }
+        .nav-links {
+          display: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+
+    <div class="container">
+      <!-- ===== NAVBAR ===== -->
+      <header class="navbar">
+        <a class="logo" href="index.html">
+          <div class="logo-icon">C</div>
+          <span>Clínica Integra</span>
+        </a>
+        <nav>
+          <ul class="nav-links">
+            <li><a href="index.html">Inicio</a></li>
+            <li><a href="formulario.html">Formulario</a></li>
+            <li><a class="active" href="ubicanos.html">Ubícanos</a></li>
+          </ul>
+        </nav>
+        <a class="nav-cta" href="formulario.html">Pedir llamada</a>
+      </header>
+
+      <!-- ===== CABECERA ===== -->
+      <div class="page-header">
+        <span class="tag">Cómo llegar</span>
+        <h1>Estamos <span>cerca</span> de usted</h1>
+        <p>
+          Encuentre nuestra dirección, referencias visuales y datos de contacto.
+        </p>
+      </div>
+
+      <!-- ===== CONTENIDO DOS COLUMNAS ===== -->
+      <section class="layout">
+        <!-- Columna izquierda: imagen -->
+        <div class="map-side">
+          <img src="images/ubicacion.jpg" alt="Ubicación de la clínica" />
+          <p>
+            💡 Puede reemplazar esta imagen por una foto real de la fachada, la
+            entrada o un mapa recortado para que los pacientes la reconozcan.
+          </p>
+        </div>
+
+        <!-- Columna derecha: datos -->
+        <div class="info-box">
+          <h2>Datos de ubicación</h2>
+
+          <div class="address">
+            <strong>📍 Dirección</strong>
+            <p>Calle San Martín 510, frente al instituto SENATI.</p>
+          </div>
+
+          <h3>Referencias para llegar</h3>
+          <ul>
+            <li><span class="dot"></span> Fachada de color azul brillante.</li>
+            <li>
+              <span class="dot"></span> Cartel grande con el nombre CLÍNICA
+              INTEGRA.
+            </li>
+            <li><span class="dot"></span> Atención de lunes a sábado.</li>
+            <li>
+              <span class="dot"></span> Solicite su cita primero desde el
+              formulario.
+            </li>
+          </ul>
+
+          <a class="go-btn" href="formulario.html">Solicitar llamada →</a>
+        </div>
+      </section>
+
+      <!-- ===== FOOTER ===== -->
+      <div class="footer">
+        ¿Necesita ayuda? Llámenos gratis al: <strong>997 701 365</strong>
+      </div>
+    </div>
+  </body>
+</html>
