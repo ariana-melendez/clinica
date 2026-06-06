@@ -263,6 +263,116 @@
         color: #7a5c0a;
       }
 
+      /* ===== HAMBURGER ===== */
+      .nav-toggle {
+        display: none;
+        flex-direction: column;
+        justify-content: center;
+        gap: 5px;
+        background: none;
+        border: none;
+        cursor: pointer;
+        padding: 4px;
+        z-index: 1001;
+      }
+      .nav-toggle span {
+        display: block;
+        width: 24px;
+        height: 2px;
+        background: #1a2e45;
+        border-radius: 2px;
+        transition: all 0.3s;
+      }
+      .nav-toggle.open span:nth-child(1) {
+        transform: translateY(7px) rotate(45deg);
+      }
+      .nav-toggle.open span:nth-child(2) {
+        opacity: 0;
+      }
+      .nav-toggle.open span:nth-child(3) {
+        transform: translateY(-7px) rotate(-45deg);
+      }
+
+      /* ===== MENU MOVIL ===== */
+      .mobile-menu {
+        display: none;
+        position: fixed;
+        inset: 0;
+        background: #1e3a5f;
+        z-index: 1000;
+        flex-direction: column;
+        padding: 28px 24px;
+        overflow-y: auto;
+      }
+      .mobile-menu.open {
+        display: flex;
+      }
+      .mobile-menu-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 40px;
+      }
+      .mobile-menu-header .logo {
+        color: #ffffff;
+      }
+      .mobile-menu-header .logo-icon {
+        background: #fff;
+        color: #3451ff;
+      }
+      .mobile-menu-header .logo span {
+        color: #fff;
+      }
+      .mobile-menu-close {
+        background: none;
+        border: none;
+        color: #fff;
+        font-size: 28px;
+        cursor: pointer;
+        line-height: 1;
+      }
+      .mobile-nav-links {
+        list-style: none;
+        display: flex;
+        flex-direction: column;
+        gap: 0;
+        flex: 1;
+      }
+      .mobile-nav-links li {
+        border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+      }
+      .mobile-nav-links a {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 20px 0;
+        text-decoration: none;
+        color: #fff;
+        font-size: 18px;
+        font-weight: 700;
+      }
+      .mobile-nav-links a::after {
+        content: "›";
+        font-size: 22px;
+        opacity: 0.6;
+      }
+      .mobile-nav-links a.active {
+        color: #7eb3ff;
+      }
+      .mobile-menu-cta {
+        margin-top: 36px;
+        background: #3451ff;
+        color: #fff;
+        border: none;
+        padding: 16px 26px;
+        border-radius: 999px;
+        font-size: 16px;
+        font-weight: 700;
+        text-decoration: none;
+        text-align: center;
+        display: block;
+      }
+
       /* ===== RESPONSIVE ===== */
       @media (max-width: 820px) {
         .layout {
@@ -273,6 +383,12 @@
         }
         .nav-links {
           display: none;
+        }
+        .nav-cta {
+          display: none;
+        }
+        .nav-toggle {
+          display: flex;
         }
       }
     </style>
@@ -296,7 +412,34 @@
           </ul>
         </nav>
         <a class="nav-cta" href="formulario.html">Pedir llamada</a>
+
+        <button class="nav-toggle" id="navToggle" aria-label="Abrir menú">
+          <span></span><span></span><span></span>
+        </button>
       </header>
+
+      <!-- ===== MENU MOVIL ===== -->
+      <div class="mobile-menu" id="mobileMenu">
+        <div class="mobile-menu-header">
+          <a class="logo" href="index.html">
+            <div class="logo-icon">C</div>
+            <span>Clínica Integra</span>
+          </a>
+          <button
+            class="mobile-menu-close"
+            id="menuClose"
+            aria-label="Cerrar menú"
+          >
+            &#x2715;
+          </button>
+        </div>
+        <ul class="mobile-nav-links">
+          <li><a href="index.html">Inicio</a></li>
+          <li><a href="formulario.html">Formulario</a></li>
+          <li><a class="active" href="ubicanos.html">Ubícanos</a></li>
+        </ul>
+        <a class="mobile-menu-cta" href="formulario.html">Pedir llamada</a>
+      </div>
 
       <!-- ===== CABECERA ===== -->
       <div class="page-header">
@@ -350,5 +493,22 @@
         ¿Necesita ayuda? Llámenos gratis al: <strong>997 701 365</strong>
       </div>
     </div>
+    <script>
+      const toggle = document.getElementById("navToggle");
+      const menu = document.getElementById("mobileMenu");
+      const close = document.getElementById("menuClose");
+      toggle.addEventListener("click", () => {
+        menu.classList.toggle("open");
+        toggle.classList.toggle("open");
+        document.body.style.overflow = menu.classList.contains("open")
+          ? "hidden"
+          : "";
+      });
+      close.addEventListener("click", () => {
+        menu.classList.remove("open");
+        toggle.classList.remove("open");
+        document.body.style.overflow = "";
+      });
+    </script>
   </body>
 </html>
